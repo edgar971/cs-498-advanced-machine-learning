@@ -1,0 +1,11 @@
+{
+  "name": "cs-498-advanced-machine-learning",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:edgar971/cs-498-advanced-machine-learning.git",
+  "author": "Edgar Pino <edgarbeltran@me.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "jupyter lab"
+  }
+}

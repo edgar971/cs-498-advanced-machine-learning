@@ -99,7 +99,7 @@ def showImage(pixels, label):
     plt.show()
 
 
-# In[177]:
+# In[238]:
 
 
 mean_images = np.zeros((10, 3072))
@@ -107,8 +107,8 @@ mean_images = np.zeros((10, 3072))
 for i in range(0, 60000):
     mean_images[combined_labels[i]] = mean_images[combined_labels[i]] + combined_data[i]
 
-mean_images = mean_images / 6000
-mean_images = mean_images.astype('uint8')  
+real_mean_images = mean_images / 6000
+mean_images = real_mean_images.astype('uint8')  
 
 
 # ## Show mean images by class
@@ -212,20 +212,20 @@ def calculateMDS(distance_matrix):
     return Y
 
 
-# In[174]:
+# In[242]:
 
 
-distance_matrix = calculateDistance(mean_images)
+distance_matrix = calculateDistance(real_mean_images)
 np.savetxt("partb_distances.csv", distance_matrix, delimiter=",", fmt='%f')
 
 
-# In[175]:
+# In[243]:
 
 
 mds = calculateMDS(distance_matrix)
 
 
-# In[176]:
+# In[244]:
 
 
 figure(figsize=(12, 6))
@@ -242,7 +242,7 @@ plt.show()
 # - https://piazza.com/class/jqo7mhnnyiy698?cid=579
 # - https://piazza.com/class/jqo7mhnnyiy698?cid=522
 
-# In[178]:
+# In[245]:
 
 
 def calculateDistanceC(mean_images, pcaByImageCategory, imagesByCategory):
@@ -255,7 +255,7 @@ def calculateDistanceC(mean_images, pcaByImageCategory, imagesByCategory):
             pca = PCA(n_components=20)
             pca.fit(imagesByCategory[b])
             pca.mean_ = meanA
-            A_trans = pca.fit_transform(imagesByCategory[a])
+            A_trans = pca.transform(imagesByCategory[a])
             A_recon = pca.inverse_transform(A_trans)
             distanceAB = (np.linalg.norm(np.array(imagesByCategory[a]) - A_recon)**2) / 6000
             
@@ -263,7 +263,7 @@ def calculateDistanceC(mean_images, pcaByImageCategory, imagesByCategory):
             pcaB = PCA(n_components=20)
             pcaB.fit(imagesByCategory[a])
             pcaB.mean_ = mean_images[b]
-            B_trans = pcaB.fit_transform(imagesByCategory[b])
+            B_trans = pcaB.transform(imagesByCategory[b])
             B_recon = pcaB.inverse_transform(B_trans)
             distanceBA = (np.linalg.norm(np.array(imagesByCategory[b]) - B_recon)**2) / 6000
             
@@ -272,25 +272,25 @@ def calculateDistanceC(mean_images, pcaByImageCategory, imagesByCategory):
     return distances
 
 
-# In[ ]:
+# In[246]:
 
 
-partc_distances = calculateDistanceC(mean_images, pcaByImageCategory, imagesByCategory)
+partc_distances = calculateDistanceC(real_mean_images, pcaByImageCategory, imagesByCategory)
 
 
-# In[ ]:
+# In[250]:
 
 
 np.savetxt("partc_distances.csv", partc_distances, delimiter=",", fmt='%f')
 
 
-# In[ ]:
+# In[251]:
 
 
 mdsC = calculateMDS(partc_distances)
 
 
-# In[ ]:
+# In[252]:
 
 
 figure(figsize=(12, 6))

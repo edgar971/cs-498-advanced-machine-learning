@@ -56,5 +56,9 @@ plot_fitted_resid(transformed_model)
 
 plot(((transformed_model$fitted.values)*lambda)^(1/lambda), cleaned_housing_data$MEDV)
 
+# Option 2
+predicted <- fitted(transformed_model) ** (1/lambda)
+plot(predicted ~ cleaned_housing_data$MEDV)
+
 summary(new_model)
 

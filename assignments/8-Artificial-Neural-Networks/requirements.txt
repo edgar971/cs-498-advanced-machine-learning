@@ -1,0 +1,8 @@
+matplotlib==3.0.2
+numpy==1.16.0
+protobuf==3.7.1
+tensorboard==1.13.1
+tensorboardX==1.6
+tensorflow==1.13.1
+torch==1.0.1.post2
+torchvision==0.2.2.post3
